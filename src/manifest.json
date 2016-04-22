@@ -1,0 +1,18 @@
+{
+  "manifest_version": 2,
+
+  "name": "JIRA Chrome Extension",
+  "description": "Gets a list of current JIRA projects",
+  "version": "0.6.1",
+  "options_page": "options.html",
+
+  "browser_action": {
+    "default_icon": "favicon.ico",
+    "default_popup": "popup.html"
+  },
+  "permissions": [
+    "storage",
+    "activeTab",
+    "https://*.atlassian.net/"
+  ]
+}

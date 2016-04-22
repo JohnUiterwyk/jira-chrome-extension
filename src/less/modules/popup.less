@@ -1,0 +1,119 @@
+body {
+  min-width: 360px;
+  font-family: 'Open Sans', sans-serif;
+}
+
+ul {
+  padding-left: 10px;
+}
+
+.row {
+  margin: 0;
+}
+
+.container-fluid {
+  padding: 0;
+}
+
+.app-header {
+  background: #25273a;
+  padding: 8px;
+}
+
+.app-header .app-title {
+  color: #c2b895;
+  line-height: 30px;
+  text-align: right;
+  padding-right: 20px;
+}
+
+.project-list > li, .issue-list > li {
+  border-bottom: solid 1px #eeeeee;
+  padding: 5px;
+}
+
+.project-list > li a, .issue-list > li a {
+  color: #25273a;
+}
+
+.project-list > li:hover, .issue-list > li:hover {
+  background: #efefef;
+}
+
+.issue-key, .project-key, .space-key {
+  overflow: hidden;
+  display: inline-block;
+  width: 25%;
+  vertical-align: top;
+  font-weight: bold;
+}
+
+.issue-summary, .project-name, .space-name {
+  padding-left: 5px;
+  display: inline-block;
+  width: 75%;
+  vertical-align: top;
+}
+
+.nav-bar {
+  background: #c2b896;
+  border-bottom: 1px solid #a09675;
+  border-top: 1px solid #ffffff;
+  padding-left: 0;
+  font-size: 12px;
+}
+
+.nav-bar .admin-btn {
+  text-align: right;
+  padding-right: 0;
+}
+
+.nav-bar .admin-btn a {
+  text-transform: uppercase;
+  color: #25273a;
+  padding: 10px 15px 10px 0;
+  display: inline-block;
+}
+
+.nav-tabs {
+  border-bottom: 0;
+}
+
+.nav-tabs > li {
+  margin-bottom: 0;
+  text-transform: uppercase;
+}
+
+.nav-tabs > li > a {
+  border-right: 1px solid #a09675;
+  border-left: 1px solid #d6ccaa;
+  border-top: 0;
+  border-bottom: 0;
+  margin-right: 0;
+  border-radius: 0;
+  color: #25273a;
+}
+
+.nav-tabs > li > a:focus {
+  outline: 0;
+}
+
+.nav-tabs > li.active {
+  margin-bottom: -1px;
+}
+
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
+  border-top: 0;
+  border-bottom: 0;
+  border-right: 1px solid #a09675;
+  border-left: 1px solid #d6ccaa;
+}
+
+.nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
+  background: -webkit-linear-gradient(top, rgba(155, 147, 120, 1) 0%, rgba(194, 184, 150, 1) 100%);
+  color: #fff;
+}
+
+.tab-pane {
+  padding: 10px;
+}

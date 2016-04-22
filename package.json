@@ -1,0 +1,30 @@
+{
+  "name": "jira-chrome-extension",
+  "version": "0.1.0",
+  "author": "John Uiterwyk",
+  "description": "Chrome extension to make working with JIRA easier",
+  "main": "gruntfile.js",
+  "lessSource": "include/less",
+  "cssDestination": "public/assets/css",
+  "jsSource": "include/js",
+  "jsDestination": "public/assets/js",
+  "engines": {
+    "node": "0.10.x",
+    "npm": "1.3.x"
+  },
+  "devDependencies": {
+    "gulp": "*",
+    "gulp-concat": "*",
+    "gulp-help": "*",
+    "gulp-less": "*",
+    "gulp-livereload": "*",
+    "gulp-notify": "*",
+    "gulp-rename": "*",
+    "gulp-serve": "*",
+    "gulp-uglify": "*",
+    "gulp-watch": "*",
+    "gulp-zip": "*",
+    "gulp-clean": "*",
+    "moment": "*"
+  }
+}

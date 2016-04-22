@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head><title>JIRA Chrome Extension Options</title>
+
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <h1>JIRA Chrome Extension Options</h1>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-sm-3">
+            <h2>Atlassian Login:</h2>
+            <div class="form-group">
+                <label for="atlassianUsername">Username</label>
+                <input type="text" class="form-control" id="atlassianUsername" placeholder="Enter username">
+            </div>
+            <div class="form-group">
+                <label for="atlassianPassword">Password</label>
+                <input type="password" class="form-control" id="atlassianPassword" placeholder="Enter password">
+            </div>
+            <div class="form-group">
+                <label for="atlassianUrl">Atlassian URL</label>
+                <input type="text" class="form-control" id="atlassianUrl" placeholder="Enter URL">
+            </div>
+            <button id="save" class="btn btn-default">Save</button>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <h4 id="status"></h4>
+        </div>
+
+    </div>
+</div>
+
+
+<script src="assets/js/plugins.js"></script>
+<script src="assets/js/options-app.js"></script>
+</body>
+</html>

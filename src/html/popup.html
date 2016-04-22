@@ -1,0 +1,76 @@
+<!doctype html>
+<!--
+ This page is shown when the extension button is clicked, because the
+ "browser_action" field in manifest.json contains the "default_popup" key with
+ value "popup.html".
+ -->
+<html>
+  <head>
+    <title>JIRA Projects</title>
+      <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,400,300,700,800' rel='stylesheet' type='text/css'>
+      <link rel="stylesheet" href="assets/css/style.css">
+      <style>
+
+      </style>
+
+
+    <!--
+      - JavaScript and HTML must be in separate files: see our Content Security
+      - Policy documentation[1] for details and explanation.
+      -
+      - [1]: https://developer.chrome.com/extensions/contentSecurityPolicy
+     -->
+  </head>
+  <body>
+  <!-- hack to handle weird chrome extension focus issue -->
+  <a style="display:inline;width: 0px; height:0px;margin:0;padding:0" href="#"></a>
+  <div class="container-fluid app-header">
+      <div class="row">
+          <div class="col-xs-6">
+          </div>
+          <div class="col-xs-6 app-title">
+              <strong>Task</strong><em>Tracker</em>
+          </div>
+      </div>
+  </div>
+
+  <div class="container-fluid">
+
+  </div>
+  <div class="container-fluid">
+
+      <div role="tabpanel">
+
+          <div class="nav-bar row">
+              <!-- Nav tabs -->
+              <ul class="nav nav-tabs col-xs-9">
+                  <li role="" class="active"><a href="#issues-tab" aria-controls="profile" role="tab" data-toggle="tab" aria-expanded="true">Issues</a></li>
+                  <li role="" class=""><a href="#jira-tab" aria-controls="home" role="tab" data-toggle="tab" aria-expanded="false">Projects</a></li>
+                  <li role="" class=""><a href="#confluence-tab" aria-controls="profile" role="tab" data-toggle="tab" aria-expanded="false">Confluence</a></li>
+              </ul>
+              <div class="admin-btn col-xs-3">
+                  <a href="#">Log out</a>
+              </div>
+          </div>
+
+          <!-- Tab panes -->
+          <div class="tab-content">
+              <div role="tabpanel" class="tab-pane active" id="issues-tab">
+                  <ul id="jira-issue-list" class="issue-list list-unstyled small"></ul>
+              </div>
+              <div role="tabpanel" class="tab-pane " id="jira-tab">
+                  <ul id="jira-project-list" class="project-list list-unstyled small"></ul>
+              </div>
+              <div role="tabpanel" class="tab-pane" id="confluence-tab">
+                  <ul id="con-project-list" class="project-list list-unstyled small"></ul>
+              </div>
+          </div>
+
+      </div>
+  </div>
+
+  <script src="assets/js/plugins.js"></script>
+  <script src="assets/js/popup-app.js"></script>
+  </body>
+</html>
+
