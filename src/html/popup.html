@@ -24,19 +24,6 @@
   <body>
   <!-- hack to handle weird chrome extension focus issue -->
   <a style="display:inline;width: 0px; height:0px;margin:0;padding:0" href="#"></a>
-  <div class="container-fluid app-header">
-      <div class="row">
-          <div class="col-xs-6">
-          </div>
-          <div class="col-xs-6 app-title">
-              <strong>Task</strong><em>Tracker</em>
-          </div>
-      </div>
-  </div>
-
-  <div class="container-fluid">
-
-  </div>
   <div class="container-fluid">
 
       <div role="tabpanel">
@@ -46,7 +33,6 @@
               <ul class="nav nav-tabs col-xs-9">
                   <li role="" class="active"><a href="#issues-tab" aria-controls="profile" role="tab" data-toggle="tab" aria-expanded="true">Issues</a></li>
                   <li role="" class=""><a href="#jira-tab" aria-controls="home" role="tab" data-toggle="tab" aria-expanded="false">Projects</a></li>
-                  <li role="" class=""><a href="#confluence-tab" aria-controls="profile" role="tab" data-toggle="tab" aria-expanded="false">Confluence</a></li>
               </ul>
               <div class="admin-btn col-xs-3">
                   <a href="#">Log out</a>
@@ -60,9 +46,6 @@
               </div>
               <div role="tabpanel" class="tab-pane " id="jira-tab">
                   <ul id="jira-project-list" class="project-list list-unstyled small"></ul>
-              </div>
-              <div role="tabpanel" class="tab-pane" id="confluence-tab">
-                  <ul id="con-project-list" class="project-list list-unstyled small"></ul>
               </div>
           </div>
 
