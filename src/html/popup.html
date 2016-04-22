@@ -33,6 +33,7 @@
               <ul class="nav nav-tabs col-xs-9">
                   <li role="" class="active"><a href="#issues-tab" aria-controls="profile" role="tab" data-toggle="tab" aria-expanded="true">Issues</a></li>
                   <li role="" class=""><a href="#jira-tab" aria-controls="home" role="tab" data-toggle="tab" aria-expanded="false">Projects</a></li>
+                  <li role="" class=""><a href="#options-tab" aria-controls="home" role="tab" data-toggle="tab" aria-expanded="false">Options</a></li>
               </ul>
               <div class="admin-btn col-xs-3">
                   <a href="#">Log out</a>
@@ -47,6 +48,32 @@
               <div role="tabpanel" class="tab-pane " id="jira-tab">
                   <ul id="jira-project-list" class="project-list list-unstyled small"></ul>
               </div>
+              <div role="tabpanel" class="tab-pane " id="options-tab">
+                      <div class="row">
+                          <div class="col-sm-3">
+                              <div class="form-group">
+                                  <label for="atlassianUsername">Username</label>
+                                  <input type="text" class="form-control" id="atlassianUsername" placeholder="Enter username">
+                              </div>
+                              <div class="form-group">
+                                  <label for="atlassianPassword">Password</label>
+                                  <input type="password" class="form-control" id="atlassianPassword" placeholder="Enter password">
+                              </div>
+                              <div class="form-group">
+                                  <label for="atlassianUrl">Atlassian URL</label>
+                                  <input type="text" class="form-control" id="atlassianUrl" placeholder="Enter URL">
+                              </div>
+                              <button id="save" class="btn btn-default">Save</button>
+                          </div>
+
+                      </div>
+                      <div class="row">
+                          <div class="col-sm-12">
+                              <h4 id="status"></h4>
+                          </div>
+
+                      </div>
+              </div>
           </div>
 
       </div>
@@ -54,6 +81,7 @@
 
   <script src="assets/js/plugins.js"></script>
   <script src="assets/js/popup-app.js"></script>
+  <script src="assets/js/options-app.js"></script>
   </body>
 </html>
 

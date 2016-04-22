@@ -25,12 +25,17 @@ JiraChrome.prototype.onSyncStorageLoaded = function(data)
     this.data.atlassianPassword = data.atlassianPassword;
     this.data.atlassianUrl = data.atlassianUrl;
     this.data.jiraBaseUrl = "https://" + this.data.atlassianUrl +"/";
-    if(this.data.atlassianUsername === "" || this.data.atlassianPassword === "" )
-    {
+    this.data.basicAuthString =  "Basic " + btoa(data.atlassianUsername + ":" + data.atlassianPassword);
+    this.data.ajaxAuthHeader = {
+        "Authorization": this.data.basicAuthString
+    };
 
+    if(data.atlassianUsername === "" || data.atlassianPassword === "" )
+    {
+        $('a[href="#options-tab"]').trigger('click');
     }else
     {
-        this.updateLists(data.atlassianUsername,data.atlassianPassword);
+        this.updateLists();
 
     }
 };
@@ -59,41 +64,46 @@ JiraChrome.prototype.onLocalStorageLoaded = function(data)
 };
 
 
-JiraChrome.prototype.doLogin = function()
+// JiraChrome.prototype.doLogin = function()
+// {
+//     // Saves options to chrome.storage
+//     var items = {};
+//     items.atlassianUsername = document.getElementById('atlassianUsername').value;
+//     items.atlassianPassword = document.getElementById('atlassianPassword').value;
+//
+//     chrome.storage.sync.set(items, function() {
+//         // Update status to let user know options were saved.
+//
+//         var status = document.getElementById('status');
+//         var jiraApiUrl = this.data.jiraBaseUrl+"rest/api/2/project?"+authString;
+//         $.ajax
+//         ({
+//             headers: {
+//                 "Authorization": "Basic " + btoa(atlassianUsername + ":" + atlassianPassword)
+//             },
+//             type: "GET",
+//             url:jiraApiUrl
+//         }).done(this.refreshJiraList.bind(this));
+//     });
+// };
+
+JiraChrome.prototype.updateLists = function()
 {
-    // Saves options to chrome.storage
-    var items = {};
-    items.atlassianUsername = document.getElementById('atlassianUsername').value;
-    items.atlassianPassword = document.getElementById('atlassianPassword').value;
-    chrome.storage.sync.set(items, function() {
-        // Update status to let user know options were saved.
 
-        var status = document.getElementById('status');
-        var authString = "os_username="+atlassianUsername+"&os_password="+atlassianPassword;
-        var jiraApiUrl = this.data.jiraBaseUrl+"rest/api/2/project?"+authString;
-        $.ajax
-        ({
-            type: "GET",
-            url:jiraApiUrl
-        }).done(this.refreshJiraList.bind(this));
-    });
-};
 
-JiraChrome.prototype.updateLists = function(atlassianUsername, atlassianPassword)
-{
 
-    var authString = "os_username="+atlassianUsername+"&os_password="+atlassianPassword;
-
-    var jiraApiUrl = this.data.jiraBaseUrl+"rest/api/2/project?"+authString;
+    var jiraApiUrl = this.data.jiraBaseUrl+"rest/api/2/project?";
     $.ajax
     ({
+        headers: this.data.ajaxAuthHeader,
         type: "GET",
         url:jiraApiUrl
     }).done(this.refreshJiraList.bind(this));
 
-    var issuesApiUrl = this.data.jiraBaseUrl+"rest/api/2/issue/picker?showSubTasks=true&"+authString;
+    var issuesApiUrl = this.data.jiraBaseUrl+"rest/api/2/issue/picker?showSubTasks=true";
     $.ajax
     ({
+        headers: this.data.ajaxAuthHeader,
         type: "GET",
         url:issuesApiUrl
     }).done(this.refreshIssueList.bind(this));
