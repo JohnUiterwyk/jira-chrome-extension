@@ -7,7 +7,7 @@
   "options_page": "options.html",
 
   "browser_action": {
-    "default_icon": "favicon.ico",
+    "default_icon": "assets/images/jira-icon.png",
     "default_popup": "popup.html"
   },
   "permissions": [
