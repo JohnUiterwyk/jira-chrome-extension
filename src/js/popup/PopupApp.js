@@ -38,21 +38,46 @@ JiraChrome.prototype.onLocalStorageLoaded = function(data)
 {
 
     this.data.jiraProjects = JSON.parse(data.jiraProjects);
-    this.data.confluenceSpaces = JSON.parse(data.confluenceSpaces);
-    this.data.issues = JSON.parse(data.issues);
     if(this.data.jiraProjects.length > 0)
     {
         this.refreshJiraList(this.data.jiraProjects);
     }
-    if(this.data.confluenceSpaces.length > 0)
-    {
-        this.refreshSpaceList(this.data.confluenceSpaces);
-    }
+
+
+    this.data.issues = JSON.parse(data.issues);
     if(this.data.issues.length > 0)
     {
         this.refreshIssueList(this.data.issues);
     }
-}
+
+
+    // this.data.confluenceSpaces = JSON.parse(data.confluenceSpaces);
+    // if(this.data.confluenceSpaces.length > 0)
+    // {
+    //     this.refreshSpaceList(this.data.confluenceSpaces);
+    // }
+};
+
+
+JiraChrome.prototype.doLogin = function()
+{
+    // Saves options to chrome.storage
+    var items = {};
+    items.atlassianUsername = document.getElementById('atlassianUsername').value;
+    items.atlassianPassword = document.getElementById('atlassianPassword').value;
+    chrome.storage.sync.set(items, function() {
+        // Update status to let user know options were saved.
+
+        var status = document.getElementById('status');
+        var authString = "os_username="+atlassianUsername+"&os_password="+atlassianPassword;
+        var jiraApiUrl = this.data.jiraBaseUrl+"rest/api/2/project?"+authString;
+        $.ajax
+        ({
+            type: "GET",
+            url:jiraApiUrl
+        }).done(this.refreshJiraList.bind(this));
+    });
+};
 
 JiraChrome.prototype.updateLists = function(atlassianUsername, atlassianPassword)
 {
@@ -60,31 +85,30 @@ JiraChrome.prototype.updateLists = function(atlassianUsername, atlassianPassword
     var authString = "os_username="+atlassianUsername+"&os_password="+atlassianPassword;
 
     var jiraApiUrl = this.data.jiraBaseUrl+"rest/api/2/project?"+authString;
-    var confluenceApiUrl = this.data.jiraBaseUrl+"wiki/rest/api/space?expand=status&limit=500&"+authString;
-    var issuesApiUrl = this.data.jiraBaseUrl+"rest/api/2/issue/picker?"+authString;
     $.ajax
     ({
         type: "GET",
         url:jiraApiUrl
     }).done(this.refreshJiraList.bind(this));
 
-    $.ajax
-    ({
-        type: "GET",
-        url:confluenceApiUrl
-    }).done(this.refreshSpaceList.bind(this));
-
+    var issuesApiUrl = this.data.jiraBaseUrl+"rest/api/2/issue/picker?showSubTasks=true&"+authString;
     $.ajax
     ({
         type: "GET",
         url:issuesApiUrl
     }).done(this.refreshIssueList.bind(this));
 
+    // var confluenceApiUrl = this.data.jiraBaseUrl+"wiki/rest/api/space?expand=status&limit=500&"+authString;
+    // $.ajax
+    // ({
+    //     type: "GET",
+    //     url:confluenceApiUrl
+    // }).done(this.refreshSpaceList.bind(this));
 
 
 
 
-}
+};
 
 JiraChrome.prototype.refreshJiraList = function(projects)
 {
@@ -110,32 +134,6 @@ JiraChrome.prototype.refreshJiraList = function(projects)
     }
 };
 
-JiraChrome.prototype.refreshSpaceList = function(spaces)
-{
-    //Confluence returns a object with the spaces in the result property
-    if(spaces.hasOwnProperty("results") === true)
-    {
-        spaces = spaces.results;
-    };
-    chrome.storage.local.set({confluenceSpaces:JSON.stringify(spaces)});
-    $('#con-project-list').empty();
-    for(var i=0; i<spaces.length;i++)
-    {
-        var html = "";
-        html +='<li>';
-        html +='<a href="'+this.data.jiraBaseUrl+'wiki/display/'+spaces[i].key+'" target="new">';
-
-        html +='<div class="space-key">';
-        html += spaces[i].key+": ";
-        html +='</div>';
-        html +='<div class="space-name">';
-        html += spaces[i].name;
-        html +='</div>';
-        html +='</a>';
-        html +='</li>';
-        $('#con-project-list').append(html);
-    }
-};
 
 JiraChrome.prototype.refreshIssueList = function(issues)
 {
@@ -163,25 +161,33 @@ JiraChrome.prototype.refreshIssueList = function(issues)
     }
 };
 
-JiraChrome.prototype.doLogin = function()
-{
-    // Saves options to chrome.storage
-    var items = {};
-    items.atlassianUsername = document.getElementById('atlassianUsername').value;
-    items.atlassianPassword = document.getElementById('atlassianPassword').value;
-    chrome.storage.sync.set(items, function() {
-        // Update status to let user know options were saved.
+// JiraChrome.prototype.refreshSpaceList = function(spaces)
+// {
+//     //Confluence returns a object with the spaces in the result property
+//     if(spaces.hasOwnProperty("results") === true)
+//     {
+//         spaces = spaces.results;
+//     };
+//     chrome.storage.local.set({confluenceSpaces:JSON.stringify(spaces)});
+//     $('#con-project-list').empty();
+//     for(var i=0; i<spaces.length;i++)
+//     {
+//         var html = "";
+//         html +='<li>';
+//         html +='<a href="'+this.data.jiraBaseUrl+'wiki/display/'+spaces[i].key+'" target="new">';
+//
+//         html +='<div class="space-key">';
+//         html += spaces[i].key+": ";
+//         html +='</div>';
+//         html +='<div class="space-name">';
+//         html += spaces[i].name;
+//         html +='</div>';
+//         html +='</a>';
+//         html +='</li>';
+//         $('#con-project-list').append(html);
+//     }
+// };
 
-        var status = document.getElementById('status');
-        var authString = "os_username="+atlassianUsername+"&os_password="+atlassianPassword;
-        var jiraApiUrl = this.data.jiraBaseUrl+"rest/api/2/project?"+authString;
-        $.ajax
-        ({
-            type: "GET",
-            url:jiraApiUrl
-        }).done(this.refreshJiraList.bind(this));
-    });
-}
 
 $( document ).ready(function()
     {
