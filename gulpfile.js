@@ -64,18 +64,31 @@ gulp.task('less', 'Compile less into a single app.css.', function ()
         }));
 });
 
-gulp.task('clean', function(){
-    return gulp.src(['build'], {read:false})
-        .pipe(clean());
+gulp.task('move-manifest', function(){
+
+    //remove manifest
+    gulp.src(['build/manifest.json'], {read:false}).pipe(clean());
+    //copy new one
+    return gulp.src(['src/manifest.json']).pipe(gulp.dest('build'));
 });
 
 
-gulp.task('move', function(){
+gulp.task('move-images', function(){
+
+    //remove manifest
+    gulp.src(['build/images'], {read:false}).pipe(clean());
+    //copy new one
+    return gulp.src(['src/images/*.*']).pipe(gulp.dest('build/assets/images'));
+});
+
+gulp.task('move-html', function(){
     // the base option sets the relative root for the set of files,
     // preserving the folder structure
+
+    //delete the existing files
+    gulp.src(['build/*.html'], {read:false}).pipe(clean());
+
     return gulp.src([
-        'src/manifest.json',
-        'src/images/favicon.ico',
         'src/html/options.html',
         'src/html/popup.html'
     ]).pipe(gulp.dest('build'));
@@ -90,33 +103,36 @@ gulp.task('zip','Package extension files in a zip file.',function()
 gulp.task('watch', 'Watch for changes and live reloads Chrome. Requires the Chrome extension \'LiveReload\'.', function ()
 {
     liveReload.listen();
-    watch({
-        glob: 'src/js/**/*.js'
-    }, function ()
+    watch('src/js/**/*.js', function ()
     {
         gulp.start('concat-js');
     });
 
-    watch({
-        glob: 'src/html/**'
-    }, function ()
+    watch('src/manifest.json', function ()
     {
-        gulp.start('move');
+        gulp.start('move-manifest');
     });
 
-    watch({
-        glob: 'src/less/**/*.less'
-    }, function ()
+    watch('src/images/**/*.*', function ()
+    {
+        gulp.start('move-images');
+    });
+
+    watch('src/html/*.html', function ()
+    {
+        gulp.start('move-html');
+    });
+
+    watch('src/less/**/*.less', function ()
     {
         gulp.start('less');
     });
 
-    watch({
-        glob: 'build/**/*.html'
-    }).pipe(liveReload({
+    watch('build/**/*.html').pipe(liveReload({
         auto: false
     }));
 });
 
 gulp.task('default', ['watch']);
+gulp.task('move', ['move-html','move-manifest','move-images']);
 gulp.task('build', ['move','concat-js','less']);
