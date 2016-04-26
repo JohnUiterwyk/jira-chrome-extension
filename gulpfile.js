@@ -97,7 +97,7 @@ gulp.task('move-html', function(){
 
 gulp.task('zip','Package extension files in a zip file.',function()
 {
-    gulp.src(['build/**/*']).pipe(zip('jira-pop.zip')).pipe(gulp.dest('deploy'))
+    gulp.src(['build/**/*']).pipe(zip('jira-chrome-extension.zip')).pipe(gulp.dest('deploy'))
 });
 
 gulp.task('watch', 'Watch for changes and live reloads Chrome. Requires the Chrome extension \'LiveReload\'.', function ()

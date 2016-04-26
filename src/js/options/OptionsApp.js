@@ -15,6 +15,15 @@ JiraChromeOptions.prototype.saveOptions = function()
     items.atlassianUsername = document.getElementById('atlassianUsername').value;
     items.atlassianPassword = document.getElementById('atlassianPassword').value;
     items.atlassianUrl = document.getElementById('atlassianUrl').value;
+    //check the user didn't put in a email
+    if(items.atlassianUsername.indexOf("@") !== -1)
+    {
+        this.updateStatus("Please use your USERNAME not your EMAIL. Thanks.",4000);
+        return;
+    }
+
+
+
     chrome.storage.sync.set(items, function() {
         // Update status to let user know options were saved.
 
@@ -40,28 +49,32 @@ JiraChromeOptions.prototype.saveOptions = function()
     {
         if(result)
         {
-            that.updateStatus("Authentication Passed.");
-            location.reload();
+            //that.updateStatus("Authentication Passed.");
         }else
         {
-            that.updateStatus("Authentication Failed.");
+            //that.updateStatus("Authentication Failed.");
 
         }
+        location.reload();
     }).error(function()
     {
         that.updateStatus("Authentication Failed.");
     });
 };
 
-JiraChromeOptions.prototype.updateStatus = function(message)
+JiraChromeOptions.prototype.updateStatus = function(message, timeOutDuration)
 {
+    if(typeof timeOutDuration === 'undefined')
+    {
+        timeOutDuration = 2000;
+    }
         // Update status to let user know options were saved.
         clearTimeout(this.statusTimer);
         var status = document.getElementById('status');
         status.textContent = message;
         this.statusTimer = setTimeout(function() {
             status.textContent = '';
-        }, 2000);
+        }, timeOutDuration);
 }
 
 
