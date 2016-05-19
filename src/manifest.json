@@ -3,12 +3,15 @@
 
   "name": "JIRA Chrome Extension",
   "description": "Gets a list of current JIRA projects",
-  "version": "0.6.1",
+  "version": "0.7",
   "options_page": "options.html",
 
   "browser_action": {
     "default_icon": "assets/images/jira-icon.png",
     "default_popup": "popup.html"
+  },
+  "icons": {
+    "128": "assets/images/jira-icon.png"
   },
   "permissions": [
     "storage",

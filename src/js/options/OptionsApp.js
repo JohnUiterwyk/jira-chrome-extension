@@ -15,6 +15,16 @@ JiraChromeOptions.prototype.saveOptions = function()
     items.atlassianUsername = document.getElementById('atlassianUsername').value;
     items.atlassianPassword = document.getElementById('atlassianPassword').value;
     items.atlassianUrl = document.getElementById('atlassianUrl').value;
+
+    items.atlassianUrl = items.atlassianUrl.replace("https://","");
+    items.atlassianUrl = items.atlassianUrl.replace("http://","");
+    items.atlassianUrl = items.atlassianUrl.replace("/","");
+
+    document.getElementById('atlassianUrl').value = items.atlassianUrl;
+    if(items.atlassianUrl.indexOf("https://"))
+    {
+
+    }
     //check the user didn't put in a email
     if(items.atlassianUsername.indexOf("@") !== -1)
     {
